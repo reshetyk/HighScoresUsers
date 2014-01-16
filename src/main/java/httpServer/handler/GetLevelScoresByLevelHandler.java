@@ -11,9 +11,12 @@ import java.util.Map;
 
 /**
  * @author Alexey
+ *
+ * Request: GET /userscores?user=<userid>
+ * Response: list of <levelid>=<score> separated by ‘;’
+ * Example: GET http://localhost:8080/userscores?user=142 -> 12=5661;13=4912;11=1560
  */
 public class GetLevelScoresByLevelHandler extends AbstractHandler {
-
     public GetLevelScoresByLevelHandler(HighScoresUsersService highScoresUsersService) {
         super(highScoresUsersService);
     }
@@ -21,15 +24,24 @@ public class GetLevelScoresByLevelHandler extends AbstractHandler {
     @Override
     public void handle() throws IOException {
         final Integer level = new Integer(requestParams.get("level"));
-        System.out.println("level=" + level);
+//        System.out.println("level=" + level);
+
         final UsersLevelScores userLevelScores = highScoresUsersService.getUserLevelScoresByLevel(level);
+
         String response = makeUserIdByScoreAsString(userLevelScores);
+
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
     }
 
+    /**
+     * Represents UsersLevelScores as string <level>=<score> separated by ‘;’
+     *
+     * @param usersLevelScores
+     * @return
+     */
     public static String makeUserIdByScoreAsString(UsersLevelScores usersLevelScores) {
         StringBuilder stringBuilder = new StringBuilder();
         final Map<User, LevelScores> userLevelScores = usersLevelScores.getUserLevelScores();
