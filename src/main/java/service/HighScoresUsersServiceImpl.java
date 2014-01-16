@@ -1,9 +1,10 @@
 package service;
 
-import domain.LevelScore;
+import domain.LevelScores;
 import domain.User;
+import domain.UsersLevelScores;
+import httpServer.handler.GetLevelScoresByLevelHandler;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +12,11 @@ import java.util.Map;
  * @author Alexey
  */
 public class HighScoresUsersServiceImpl implements HighScoresUsersService {
-    private static Map<User, LevelScore> userLevelScoreMap = new LinkedHashMap<User, LevelScore>();
+
+    private static UsersLevelScores usersLevelScores = new UsersLevelScores();
 
     public void addUserLevelScore(int idUser, int level, long score) {
-        userLevelScoreMap.put(new User(idUser), new LevelScore(level, score));
+        usersLevelScores.addUserLevelScore(new User(idUser), level, score);
     }
 
     /**
@@ -25,9 +27,17 @@ public class HighScoresUsersServiceImpl implements HighScoresUsersService {
      * @param level
      * @return
      */
-    public Map<User, LevelScore> getUserLevelScoresByLevel(int level) {
-
-        throw new UnsupportedOperationException("Not implemented yet");
+    public UsersLevelScores getUserLevelScoresByLevel(int level) {
+        UsersLevelScores usersLevelScoresFiltered = new UsersLevelScores();
+        final Map<User, LevelScores> userLevelScores = usersLevelScores.getUserLevelScores();
+        for (Map.Entry<User, LevelScores> userLevelScoresEntry : userLevelScores.entrySet()) {
+            final Map<Integer, Long> levelScoreMap = userLevelScoresEntry.getValue().getLevelScoreMap();
+            if (levelScoreMap.containsKey(level)) {
+                final Long score = levelScoreMap.get(level);
+                usersLevelScoresFiltered.addUserLevelScore(userLevelScoresEntry.getKey(), level, score);
+            }
+        }
+        return usersLevelScoresFiltered;
     }
 
     /**
@@ -38,8 +48,8 @@ public class HighScoresUsersServiceImpl implements HighScoresUsersService {
      * @param userId
      * @return
      */
-    public List<LevelScore> getLevelScoresByUserId(int userId) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public LevelScores getLevelScoresByUserId(int userId) {
+        return usersLevelScores.getUserLevelScores().get(new User(userId));
     }
 
 

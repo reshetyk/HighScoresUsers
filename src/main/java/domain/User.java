@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class User {
     private int id;
-    private List<LevelScore> levelScores;
 
     public User() {
     }
@@ -39,13 +38,5 @@ public class User {
     @Override
     public int hashCode() {
         return id;
-    }
-
-    public List<LevelScore> getLevelScores() {
-        return levelScores;
-    }
-
-    public void setLevelScores(List<LevelScore> levelScores) {
-        this.levelScores = levelScores;
     }
 }

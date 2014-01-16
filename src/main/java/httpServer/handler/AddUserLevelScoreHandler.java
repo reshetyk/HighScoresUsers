@@ -20,7 +20,7 @@ public class AddUserLevelScoreHandler extends AbstractHandler {
         final Integer level = new Integer(requestParams.get("level"));
         final Long score = new Long(requestParams.get("score"));
         System.out.println("userid=" + userId + "; level=" + level + "; score" + score);
-//            TODO:  highScoresUsersService.addUserLevelScore(userId, level, score);
+        highScoresUsersService.addUserLevelScore(userId, level, score);
         httpExchange.sendResponseHeaders(200, 0);
         OutputStream os = httpExchange.getResponseBody();
         os.close();

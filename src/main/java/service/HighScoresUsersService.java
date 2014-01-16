@@ -1,7 +1,8 @@
 package service;
 
-import domain.LevelScore;
+import domain.LevelScores;
 import domain.User;
+import domain.UsersLevelScores;
 
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,8 @@ public interface HighScoresUsersService {
 
     void addUserLevelScore(int idUser, int level, long score);
 
-    Map<User, LevelScore> getUserLevelScoresByLevel(int level);
+    UsersLevelScores getUserLevelScoresByLevel(int level);
 
-    List<LevelScore> getLevelScoresByUserId(int userId);
+    LevelScores getLevelScoresByUserId(int userId);
 
 }
