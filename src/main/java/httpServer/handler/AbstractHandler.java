@@ -11,24 +11,35 @@ import java.util.Map;
 /**
  * @author Alexey
  */
-public abstract class AbstractHandler implements HttpHandler {
+public abstract class AbstractHandler implements HttpContextHandler {
 
     protected HighScoresUsersService highScoresUsersService;
     protected Map<String, String> requestParams;
     protected HttpExchange httpExchange;
+    protected String context;
 
-    public AbstractHandler(HighScoresUsersService highScoresUsersService) {
+    public AbstractHandler(String context, HighScoresUsersService highScoresUsersService) {
+        this.context = context;
         this.highScoresUsersService = highScoresUsersService;
     }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        this.httpExchange = httpExchange;
-        requestParams = parseRequestParams(httpExchange.getRequestURI().getQuery());
-        handle();
+        try {
+            this.httpExchange = httpExchange;
+            requestParams = parseRequestParams(httpExchange.getRequestURI().getQuery());
+            handle();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
-    public abstract void handle () throws IOException;
+    public abstract void handle() throws IOException;
+
+    @Override
+    public String getContext() {
+        return context;
+    }
 
     public static Map<String, String> parseRequestParams(String query) {
         Map<String, String> result = new HashMap<String, String>();
@@ -44,4 +55,5 @@ public abstract class AbstractHandler implements HttpHandler {
         }
         return result;
     }
+
 }

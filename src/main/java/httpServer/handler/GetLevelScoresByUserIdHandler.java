@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public class GetLevelScoresByUserIdHandler extends AbstractHandler {
 
-    public GetLevelScoresByUserIdHandler(HighScoresUsersService highScoresUsersService) {
-        super(highScoresUsersService);
+    public GetLevelScoresByUserIdHandler(String context, HighScoresUsersService highScoresUsersService) {
+        super(context, highScoresUsersService);
     }
 
     @Override

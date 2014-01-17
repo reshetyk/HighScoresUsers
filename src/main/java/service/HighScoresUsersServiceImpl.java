@@ -13,7 +13,11 @@ import java.util.Map;
  */
 public class HighScoresUsersServiceImpl implements HighScoresUsersService {
 
-    private static UsersLevelScores usersLevelScores = new UsersLevelScores();
+    private UsersLevelScores usersLevelScores;
+
+    public HighScoresUsersServiceImpl(UsersLevelScores usersLevelScores) {
+        this.usersLevelScores = usersLevelScores;
+    }
 
     public void addUserIdLevelScore(int userId, int level, long score) {
         usersLevelScores.addUserLevelScore(new User(userId), level, score);
@@ -38,5 +42,7 @@ public class HighScoresUsersServiceImpl implements HighScoresUsersService {
 
     }
 
-
+    public UsersLevelScores getUsersLevelScores() {
+        return usersLevelScores;
+    }
 }

@@ -14,8 +14,8 @@ import java.io.OutputStream;
  */
 public class AddUserIdLevelScoreHandler extends AbstractHandler {
 
-    public AddUserIdLevelScoreHandler(HighScoresUsersService highScoresUsersService) {
-        super(highScoresUsersService);
+    public AddUserIdLevelScoreHandler(String context, HighScoresUsersService highScoresUsersService) {
+        super(context, highScoresUsersService);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class AddUserIdLevelScoreHandler extends AbstractHandler {
         final Integer level = new Integer(requestParams.get("level"));
         final Long score = new Long(requestParams.get("score"));
 
-//        System.out.println("userid=" + userId + "; level=" + level + "; score" + score);
+        System.out.println("userid=" + userId + "; level=" + level + "; score" + score);
 
         highScoresUsersService.addUserIdLevelScore(userId, level, score);
 

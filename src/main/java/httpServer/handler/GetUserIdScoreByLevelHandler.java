@@ -14,10 +14,10 @@ import java.util.Map;
  * Response: list of <userid>=<score> separated by ‘;’
  * Example: GET http://localhost:8080/levelscores?level=12 -> 142=5661;23=5444;12=1200
  */
-public class GetUserIdScoreByLevel extends AbstractHandler{
+public class GetUserIdScoreByLevelHandler extends AbstractHandler{
 
-    public GetUserIdScoreByLevel(HighScoresUsersService highScoresUsersService) {
-        super(highScoresUsersService);
+    public GetUserIdScoreByLevelHandler(String context, HighScoresUsersService highScoresUsersService) {
+        super(context, highScoresUsersService);
     }
 
     @Override
