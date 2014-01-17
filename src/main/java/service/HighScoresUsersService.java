@@ -12,10 +12,10 @@ import java.util.Map;
  */
 public interface HighScoresUsersService {
 
-    void addUserLevelScore(int idUser, int level, long score);
+    void addUserIdLevelScore(int userId, int level, long score);
 
-    UsersLevelScores getUserLevelScoresByLevel(int level);
+    Map<Integer, Long> getUserIdScoreByLevel(int level);
 
-    LevelScores getLevelScoresByUserId(int userId);
+    Map<Integer, Long> getLevelScoresByUserId(int userId);
 
 }

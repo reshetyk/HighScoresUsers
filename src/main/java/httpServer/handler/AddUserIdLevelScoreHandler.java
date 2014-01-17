@@ -12,9 +12,9 @@ import java.io.OutputStream;
  * Response: (nothing)
  * Example: POST http://localhost:8080/postscore?user=142&level=12&score=5661
  */
-public class AddUserLevelScoreHandler extends AbstractHandler {
+public class AddUserIdLevelScoreHandler extends AbstractHandler {
 
-    public AddUserLevelScoreHandler(HighScoresUsersService highScoresUsersService) {
+    public AddUserIdLevelScoreHandler(HighScoresUsersService highScoresUsersService) {
         super(highScoresUsersService);
     }
 
@@ -26,7 +26,7 @@ public class AddUserLevelScoreHandler extends AbstractHandler {
 
 //        System.out.println("userid=" + userId + "; level=" + level + "; score" + score);
 
-        highScoresUsersService.addUserLevelScore(userId, level, score);
+        highScoresUsersService.addUserIdLevelScore(userId, level, score);
 
         httpExchange.sendResponseHeaders(200, 0);
         OutputStream os = httpExchange.getResponseBody();
