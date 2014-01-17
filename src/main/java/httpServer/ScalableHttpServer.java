@@ -18,7 +18,7 @@ public class ScalableHttpServer {
     }
 
     public void start() {
-        server.setExecutor(Executors.newCachedThreadPool()); // creates a default executor
+        server.setExecutor(Executors.newCachedThreadPool());
         server.start();
         System.out.println("Server started");
     }
