@@ -3,7 +3,6 @@ package service;
 import domain.LevelScores;
 import domain.User;
 import domain.UsersLevelScores;
-import utils.ConverterMapToString;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +12,7 @@ import java.util.Map;
  */
 public class HighScoresUsersServiceImpl implements HighScoresUsersService {
 
-    private UsersLevelScores usersLevelScores;
+    private final UsersLevelScores usersLevelScores;
 
     public HighScoresUsersServiceImpl(UsersLevelScores usersLevelScores) {
         this.usersLevelScores = usersLevelScores;

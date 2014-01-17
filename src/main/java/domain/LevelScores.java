@@ -7,7 +7,7 @@ import java.util.Map;
  * @author Alexey
  */
 public class LevelScores {
-    private Map<Integer, Long> levelScoreMap = new HashMap<Integer, Long>();
+    private final Map<Integer, Long> levelScoreMap = new HashMap<Integer, Long>();
 
     public void put (Integer level, Long score) {
         levelScoreMap.put(level, score);

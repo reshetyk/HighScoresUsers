@@ -31,5 +31,7 @@ public class GetUserIdScoreByLevelHandler extends AbstractHandler{
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
+
+        System.out.println("get userid score by [level=" + level + "]");
     }
 }

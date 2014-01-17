@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class HighScoresUsersServiceImplTest {
 
     private HighScoresUsersService scoresUsersService;
-    private UsersLevelScores usersLevelScores = new UsersLevelScores();
+    private final UsersLevelScores usersLevelScores = new UsersLevelScores();
 
     @BeforeClass
     public void setUp() throws Exception {

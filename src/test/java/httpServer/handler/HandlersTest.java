@@ -1,6 +1,5 @@
 package httpServer.handler;
 
-import junit.framework.Assert;
 import launcher.Launcher;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -8,7 +7,8 @@ import org.testng.annotations.Test;
 import static httpServer.handler.HttpUrlConnector.RequestMethod.GET;
 import static httpServer.handler.HttpUrlConnector.RequestMethod.POST;
 import static httpServer.handler.HttpUrlConnector.doHttpRequest;
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * @author Alexey
@@ -39,7 +39,7 @@ public class HandlersTest {
     public void testGetLevelScoresByUserIdHandler() throws Exception {
 
         assertEquals(
-                "12=5661;10=6000;5=7888;5=7500",
+                "5=7888;10=6000;12=5661",
                 doHttpRequest(SERVICE_HOST_URL + "/userscores?userid=142", GET)
         );
 

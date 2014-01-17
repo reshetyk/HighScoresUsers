@@ -1,7 +1,6 @@
 package httpServer.handler;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import service.HighScoresUsersService;
 
 import java.io.IOException;
@@ -13,10 +12,10 @@ import java.util.Map;
  */
 public abstract class AbstractHandler implements HttpContextHandler {
 
-    protected HighScoresUsersService highScoresUsersService;
+    protected final HighScoresUsersService highScoresUsersService;
     protected Map<String, String> requestParams;
     protected HttpExchange httpExchange;
-    protected String context;
+    protected final String context;
 
     public AbstractHandler(String context, HighScoresUsersService highScoresUsersService) {
         this.context = context;
