@@ -10,6 +10,8 @@ import service.HighScoresUsersServiceImpl;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author oreshetiuk
@@ -17,6 +19,8 @@ import java.net.InetSocketAddress;
 public class Launcher {
 
     public static void  main (String [] args) throws IOException {
+        Logger.getLogger("").setLevel(Level.INFO);
+
         final HighScoresUsersServiceImpl highScoresUsersService = new HighScoresUsersServiceImpl(new UsersLevelScores());
 
         ScalableHttpServer httpServer = new ScalableHttpServer(HttpServer.create(new InetSocketAddress(8080), 0));

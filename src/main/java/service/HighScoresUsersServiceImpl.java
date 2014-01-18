@@ -40,8 +40,4 @@ public class HighScoresUsersServiceImpl implements HighScoresUsersService {
         return usersLevelScores.getUserLevelScores().get(new User(userId)).getLevelScoreMap();
 
     }
-
-    public UsersLevelScores getUsersLevelScores() {
-        return usersLevelScores;
-    }
 }

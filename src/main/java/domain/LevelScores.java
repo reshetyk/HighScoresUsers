@@ -17,25 +17,4 @@ public class LevelScores {
         return levelScoreMap;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LevelScores)) return false;
-
-        LevelScores that = (LevelScores) o;
-
-        if (levelScoreMap != null ? !levelScoreMap.equals(that.levelScoreMap) : that.levelScoreMap != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return levelScoreMap != null ? levelScoreMap.hashCode() : 0;
-    }
-
-    public int size() {
-        return levelScoreMap.size();
-    }
 }

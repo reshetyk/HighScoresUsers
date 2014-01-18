@@ -6,9 +6,6 @@ package domain;
 public class User {
     private int id;
 
-    public User() {
-    }
-
     public User(int id) {
         this.id = id;
     }
@@ -17,14 +14,11 @@ public class User {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (o == null) return false;
+
+        if (!User.class.equals(o.getClass())) return false;
 
         User user = (User) o;
 

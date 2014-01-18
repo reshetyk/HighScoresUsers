@@ -8,7 +8,6 @@ import static httpServer.handler.HttpUrlConnector.RequestMethod.GET;
 import static httpServer.handler.HttpUrlConnector.RequestMethod.POST;
 import static httpServer.handler.HttpUrlConnector.doHttpRequest;
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 /**
  * @author Alexey
@@ -26,13 +25,25 @@ public class HandlersTest {
 
     @Test
     public void testAddUserIdLevelScoreHandler() throws Exception {
-        doHttpRequest(SERVICE_HOST_URL + "/postscore?user=142&level=12&score=5661", POST);
-        doHttpRequest(SERVICE_HOST_URL + "/postscore?user=142&level=10&score=6000", POST);
-        doHttpRequest(SERVICE_HOST_URL + "/postscore?user=142&level=5&score=7888", POST);
-        doHttpRequest(SERVICE_HOST_URL + "/postscore?user=150&level=5&score=7500", POST);
-        doHttpRequest(SERVICE_HOST_URL + "/postscore?user=150&level=10&score=6555", POST);
-        String result = doHttpRequest(SERVICE_HOST_URL + "/postscore?user=142&level=12&score=5661", POST);
-        assertTrue(result.isEmpty());
+        assertEquals("",
+                doHttpRequest(SERVICE_HOST_URL + "/postscore?user=222&level=12&score=66667777", POST)
+        );
+        assertEquals("",
+                doHttpRequest(SERVICE_HOST_URL + "/postscore?user=142&level=12&score=5661", POST)
+        );
+        assertEquals("",
+                doHttpRequest(SERVICE_HOST_URL + "/postscore?user=142&level=10&score=6000", POST)
+        );
+        assertEquals("",
+                doHttpRequest(SERVICE_HOST_URL + "/postscore?user=142&level=5&score=7888", POST)
+        );
+        assertEquals("",
+                doHttpRequest(SERVICE_HOST_URL + "/postscore?user=150&level=5&score=7500", POST)
+        );
+        assertEquals("",
+                doHttpRequest(SERVICE_HOST_URL + "/postscore?user=150&level=10&score=6555", POST)
+        );
+
     }
 
     @Test(dependsOnMethods = "testAddUserIdLevelScoreHandler")
@@ -53,7 +64,7 @@ public class HandlersTest {
     public void testGetUserIdScoreByLevelHandler() throws Exception {
 
         assertEquals(
-                "142=5661",
+                "222=66667777;142=5661",
                 doHttpRequest(SERVICE_HOST_URL + "/levelscores?level=12", GET)
         );
 

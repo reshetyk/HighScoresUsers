@@ -1,16 +1,20 @@
 package httpServer.handler;
 
 import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 import service.HighScoresUsersService;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Alexey
  */
 public abstract class AbstractHandler implements HttpContextHandler {
+    private static final Logger LOGGER = Logger.getLogger(AbstractHandler.class.getName());
 
     protected final HighScoresUsersService highScoresUsersService;
     protected Map<String, String> requestParams;
@@ -29,7 +33,9 @@ public abstract class AbstractHandler implements HttpContextHandler {
             requestParams = parseRequestParams(httpExchange.getRequestURI().getQuery());
             handle();
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            httpExchange.sendResponseHeaders(200, 0);
+            httpExchange.getResponseBody().close();
+            LOGGER.log(Level.SEVERE, "Exception", throwable);
         }
     }
 
@@ -55,4 +61,8 @@ public abstract class AbstractHandler implements HttpContextHandler {
         return result;
     }
 
+    protected void logAndThrowException(Logger logger, Class<? extends HttpHandler> httpHandlerClass, Throwable e) {
+        logger.log(Level.SEVERE, "Exception occurred in the handler " + httpHandlerClass.getName(), e);
+        throw new RuntimeException(e);
+    }
 }
