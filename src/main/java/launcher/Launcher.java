@@ -1,6 +1,5 @@
 package launcher;
 
-import com.sun.net.httpserver.HttpServer;
 import domain.UsersLevelScores;
 import httpServer.ScalableHttpServer;
 import httpServer.handler.AddUserIdLevelScoreHandler;
@@ -9,9 +8,8 @@ import httpServer.handler.GetUserIdScoreByLevelHandler;
 import service.HighScoresUsersServiceImpl;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Properties;
+import java.util.logging.LogManager;
 
 /**
  * @author oreshetiuk
@@ -19,11 +17,14 @@ import java.util.logging.Logger;
 public class Launcher {
 
     public static void  main (String [] args) throws IOException {
-        Logger.getLogger("").setLevel(Level.INFO);
+        LogManager.getLogManager().readConfiguration(Launcher.class.getResourceAsStream("/logging.properties"));
+
+        Properties properties = new Properties();
+        properties.load(Launcher.class.getResourceAsStream("/httpserver-config.properties"));
 
         final HighScoresUsersServiceImpl highScoresUsersService = new HighScoresUsersServiceImpl(new UsersLevelScores());
 
-        ScalableHttpServer httpServer = new ScalableHttpServer(HttpServer.create(new InetSocketAddress(8080), 0));
+        ScalableHttpServer httpServer = new ScalableHttpServer(properties);
         httpServer.addHttpContextHandler(new AddUserIdLevelScoreHandler("/postscore", highScoresUsersService));
         httpServer.addHttpContextHandler(new GetUserIdScoreByLevelHandler("/levelscore", highScoresUsersService));
         httpServer.addHttpContextHandler(new GetLevelScoresByUserIdHandler("/userscores", highScoresUsersService));
