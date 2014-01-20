@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -10,7 +11,8 @@ public class UsersLevelScores {
     private final Map<User, LevelScores> userLevelScores = new ConcurrentHashMap<User, LevelScores>();
 
     public void addUserLevelScore(User user, Integer level, Long score) {
-        LevelScores levelScores;
+        synchronized (userLevelScores) {
+            LevelScores levelScores;
             if (userLevelScores.containsKey(user)) {
                 levelScores = userLevelScores.get(user);
             } else {
@@ -18,10 +20,15 @@ public class UsersLevelScores {
             }
             levelScores.put(level, score);
             userLevelScores.put(user, levelScores);
+        }
     }
 
-    public Map<User, LevelScores> getUserLevelScores() {
-        return userLevelScores;
+    public LevelScores get(Object key) {
+        return userLevelScores.get(key);
+    }
+
+    public Set<Map.Entry<User,LevelScores>> entrySet() {
+        return userLevelScores.entrySet();
     }
 
     public int size() {

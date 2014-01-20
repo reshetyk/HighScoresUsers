@@ -24,12 +24,11 @@ public class HighScoresUsersServiceImpl implements HighScoresUsersService {
 
     public Map<Integer, Long> getUserIdScoreByLevel(int level) {
         Map<Integer, Long> result = new HashMap<Integer, Long>();
-        final Map<User, LevelScores> userLevelScores = usersLevelScores.getUserLevelScores();
-        for (Map.Entry<User, LevelScores> userLevelScoresEntry : userLevelScores.entrySet()) {
-            final Map<Integer, Long> levelScoreMap = userLevelScoresEntry.getValue().getLevelScoreMap();
-            if (levelScoreMap.containsKey(level)) {
+        for (Map.Entry<User, LevelScores> userLevelScoresEntry : usersLevelScores.entrySet()) {
+            final LevelScores levelScores = userLevelScoresEntry.getValue();
+            if (levelScores.containsKey(level)) {
                 final Integer userId = userLevelScoresEntry.getKey().getId();
-                final Long score = levelScoreMap.get(level);
+                final Long score = levelScores.get(level);
                 result.put(userId, score);
             }
         }
@@ -37,7 +36,11 @@ public class HighScoresUsersServiceImpl implements HighScoresUsersService {
     }
 
     public Map<Integer, Long> getLevelScoresByUserId(int userId) {
-        return usersLevelScores.getUserLevelScores().get(new User(userId)).getLevelScoreMap();
-
+        Map<Integer, Long> result = new HashMap<Integer, Long>();
+        final LevelScores levelScores = usersLevelScores.get(new User(userId));
+        for (Map.Entry<Integer, Long> levelScoresEntry : levelScores.entrySet()) {
+            result.put(levelScoresEntry.getKey(), levelScoresEntry.getValue());
+        }
+        return result;
     }
 }

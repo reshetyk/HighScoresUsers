@@ -4,7 +4,7 @@ package domain;
  * @author Alexey
  */
 public class User {
-    private int id;
+    private final int id;
 
     public User(int id) {
         this.id = id;
